@@ -1,0 +1,15 @@
+{
+  "manifest_version": 3,
+  "name": "OKX position size calculator",
+  "description": "",
+  "version": "1.0.0",
+  "icons": {
+    "512": "icon.png"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://www.okx.com/trade-swap/*"],
+      "js": ["dist/index.js"]
+    }
+  ]
+}
