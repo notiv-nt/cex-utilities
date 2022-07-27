@@ -4,7 +4,7 @@
   "description": "",
   "version": "1.0.0",
   "icons": {
-    "512": "icon.png"
+    "128": "icon.png"
   },
   "content_scripts": [
     {
