@@ -1,6 +1,6 @@
 import { singleton } from 'tsyringe';
-import { Loop } from '../../core/loop';
-import { SymbolService } from '../symbol.service';
+import { Loop } from '../../../core/loop';
+import { SymbolService } from '../../symbol.service';
 
 const ORDER_TYPE_TABS = '.place-order-stop-selector label';
 

@@ -1,5 +1,5 @@
 import { singleton } from 'tsyringe';
-import { SymbolService } from '../symbol.service';
+import { SymbolService } from '../../symbol.service';
 
 const PANEL_TABS = '.place-order-inner-common .okui-tabs-pane-list-flex > .okui-tabs-pane';
 

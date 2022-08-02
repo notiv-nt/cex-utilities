@@ -1,5 +1,5 @@
 import { singleton } from 'tsyringe';
-import { extractPriceFromElement, triggerInputChange } from '../lib';
+import { extractPriceFromElement, triggerInputChange } from '../../lib';
 
 const SYMBOL_PLACEHOLDER = '--';
 const SYMBOL_SELECTOR = '#app .watch-drop-box .ticker-title';

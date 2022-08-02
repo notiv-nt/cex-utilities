@@ -1,7 +1,7 @@
 import { singleton } from 'tsyringe';
 import BaseService from '../base/base.service';
 import { Loop } from '../core/loop';
-import { UiService } from './ui.service';
+import { UiService } from './ui/ui.service';
 
 @singleton()
 export class CurrentPriceService extends BaseService {

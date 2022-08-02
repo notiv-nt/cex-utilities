@@ -2,7 +2,7 @@ import { singleton } from 'tsyringe';
 import BaseService from '../base/base.service';
 import { Loop } from '../core/loop';
 import { ShortcutsService } from './shortcuts.service';
-import { UiService } from './ui.service';
+import { UiService } from './ui/ui.service';
 
 @singleton()
 export class StopLossService extends BaseService {

@@ -4,7 +4,7 @@ import { Loop } from '../core/loop';
 import { calcAmount } from '../lib';
 import { CurrentPriceService } from './current-price.service';
 import { StopLossService } from './stop-loss.service';
-import { UiService } from './ui.service';
+import { UiService } from './ui/ui.service';
 
 @singleton()
 export class AmountService extends BaseService {
