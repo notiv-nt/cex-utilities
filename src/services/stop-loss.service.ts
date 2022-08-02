@@ -1,54 +1,34 @@
-import { extractPriceFromElement, triggerInputChange } from '../lib';
+import { singleton } from 'tsyringe';
 import BaseService from '../base/base.service';
+import { Loop } from '../core/loop';
+import { ShortcutsService } from './shortcuts.service';
+import { UiService } from './ui.service';
 
-class StopLossService extends BaseService {
-  private isAltPressed = false;
+@singleton()
+export class StopLossService extends BaseService {
+  public stopLoss: null | number = null;
 
-  public setupListeners() {
-    window.addEventListener('keydown', (e) => {
-      if (e.key === 'Alt') {
-        this.isAltPressed = true;
-      }
-    });
-
-    window.addEventListener('keyup', (e) => {
-      if (e.key === 'Alt') {
-        this.isAltPressed = false;
-      }
-    });
+  constructor(
+    private readonly loop: Loop,
+    private readonly uiService: UiService,
+    private readonly shortcutsService: ShortcutsService,
+  ) {
+    super();
   }
 
-  public watchStopLoss = () => {
-    const loop = () => {
-      if (!this.isAlive) {
+  public watchStopLoss() {
+    this.loop.on('tick', () => {
+      if (!this.shortcutsService.isAltPressed) {
         return;
       }
 
-      this.extractStopLossPrice();
-      requestAnimationFrame(loop);
-    };
+      const stopLoss = this.uiService.getStopLoss();
 
-    loop();
-  };
-
-  private extractStopLossPrice() {
-    const cursorPrice = this.getCursorPrice();
-
-    if (cursorPrice !== null && this.isAltPressed) {
-      const stopLossInput = document.querySelector(
-        '#app .place-order-form-box .place-order-input-box input[name="slTriggerPx"]',
-      );
-
-      triggerInputChange(stopLossInput, cursorPrice);
-    }
-  }
-
-  private getCursorPrice() {
-    const cursor = document.querySelector<HTMLDivElement>(
-      '#okline-wrap .okline-indic-scale.okline-indic-scale-rangeSelect',
-    );
-    return extractPriceFromElement(cursor);
+      if (stopLoss !== null && this.stopLoss !== stopLoss) {
+        this.stopLoss = stopLoss;
+        this.uiService.changeStopLossInput(stopLoss);
+        this.emit('change', stopLoss);
+      }
+    });
   }
 }
-
-export default new StopLossService();

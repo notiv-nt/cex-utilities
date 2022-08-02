@@ -1,44 +1,35 @@
-import { calcAmount, triggerInputChange } from '../lib';
+import { singleton } from 'tsyringe';
 import BaseService from '../base/base.service';
-import priceService from './price.service';
+import { Loop } from '../core/loop';
+import { calcAmount } from '../lib';
+import { CurrentPriceService } from './current-price.service';
+import { StopLossService } from './stop-loss.service';
+import { UiService } from './ui.service';
 
-class AmountService extends BaseService {
+@singleton()
+export class AmountService extends BaseService {
+  constructor(
+    private readonly loop: Loop,
+    private readonly uiService: UiService,
+    private readonly currentPriceService: CurrentPriceService,
+    private readonly stopLossService: StopLossService,
+  ) {
+    super();
+  }
+
   private setAmount() {
-    const stopLossElement = document.querySelector<HTMLInputElement>(
-      '#app .place-order-form-box .place-order-input-box input[name="slTriggerPx"]',
-    );
+    const stopLossPrice = this.stopLossService.stopLoss;
+    const currentPrice = this.currentPriceService.lastPrice;
 
-    if (!stopLossElement) {
-      return;
+    if (stopLossPrice !== null && currentPrice !== null) {
+      const amount = calcAmount(currentPrice, stopLossPrice, 1);
+      this.uiService.setAmount(amount);
     }
-
-    const stopLossPrice = parseFloat(stopLossElement.value);
-    const currentPrice = priceService.lastPrice;
-
-    const amountInput = document.querySelector<HTMLInputElement>(
-      '#app .place-order-form-box .place-order-input-box input[name="size"]',
-    );
-
-    if (!stopLossPrice || !currentPrice) {
-      return;
-    }
-
-    const amount = calcAmount(currentPrice, stopLossPrice, 1);
-    triggerInputChange(amountInput, amount);
   }
 
   public watchAmount() {
-    const loop = () => {
-      if (!this.isAlive) {
-        return;
-      }
-
+    this.loop.on('tick', () => {
       this.setAmount();
-      requestAnimationFrame(loop);
-    };
-
-    loop();
+    });
   }
 }
-
-export default new AmountService();

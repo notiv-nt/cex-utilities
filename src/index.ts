@@ -1,24 +1,33 @@
-import amountService from './services/amount.service';
-import priceService from './services/price.service';
-import stopLossService from './services/stop-loss.service';
-import symbolService from './services/symbol.service';
-import uiService from './services/ui.service';
+import 'reflect-metadata';
+import { container } from 'tsyringe';
+import { App } from './app';
 
-uiService.forceStopLossOpen();
+const app = container.resolve(App);
 
-stopLossService.watchStopLoss();
-stopLossService.setupListeners();
+// TODO: app.on('ready')
+setTimeout(() => app.start(), 1000);
 
-priceService.watchPrice();
+// import amountService from './services/amount.service';
+// import priceService from './services/price.service';
+// import stopLossService from './services/stop-loss.service';
+// import symbolService from './services/symbol.service';
+// import uiService from './services/ui.service';
 
-symbolService.watchSymbol();
+// uiService.forceStopLossOpen();
 
-amountService.watchAmount();
+// stopLossService.watchStopLoss();
+// stopLossService.setupListeners();
 
-symbolService.on('change', () => {
-  uiService.openMarketPanel();
-});
+// priceService.watchPrice();
 
-setTimeout(() => {
-  uiService.openMarketPanel();
-}, 1000);
+// symbolService.watchSymbol();
+
+// amountService.watchAmount();
+
+// symbolService.on('change', () => {
+//   uiService.openMarketPanel();
+// });
+
+// setTimeout(() => {
+//   uiService.openMarketPanel();
+// }, 1000);

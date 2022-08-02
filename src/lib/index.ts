@@ -7,12 +7,15 @@ export function extractPriceFromElement(element: HTMLElement | null): number | n
     return null;
   }
   const value = element.innerText.trim().replace(/[^\d.]/gm, '');
-  return parseFloat(value);
+  const price = parseFloat(value);
+  if (Number.isNaN(price)) {
+    return null;
+  }
+  return price;
 }
 
 export function triggerInputChange(node, value: string | number = '') {
   /* eslint-disable no-proto */
-
   const inputTypes = [window.HTMLInputElement, window.HTMLSelectElement, window.HTMLTextAreaElement];
 
   if (inputTypes.indexOf(node.__proto__.constructor) > -1) {

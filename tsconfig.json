@@ -5,7 +5,10 @@
     "target": "ESNext",
     "strictNullChecks": true,
     "strictFunctionTypes": true,
-    "baseUrl": "./src",
+    "isolatedModules": true,
+    "types": ["reflect-metadata"],
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
     "outDir": "./dist"
   },
   "include": ["./src/**/*"],

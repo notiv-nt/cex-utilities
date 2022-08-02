@@ -1,48 +1,57 @@
-import BaseService from '../base/base.service';
+import { singleton } from 'tsyringe';
+import { extractPriceFromElement, triggerInputChange } from '../lib';
 
-class UiService extends BaseService {
-  forceStopLossOpen() {
-    const loop = () => {
-      if (!this.isAlive) {
-        return;
-      }
+const SYMBOL_PLACEHOLDER = '--';
+const SYMBOL_SELECTOR = '#app .watch-drop-box .ticker-title';
+const CURSOR_SELECTOR = '#okline-wrap .okline-indic-scale.okline-indic-scale-rangeSelect';
+const STOP_LOSS_INPUT_SELECTOR = '#app .place-order-form-box .place-order-input-box input[name="slTriggerPx"]';
+const LAST_PRICE_SELECTOR = '#okline-wrap .okline-indic-scale.okline-indic-scale-lastClose';
+const LAST_PRICE_TOP_BAR_SELECTOR = '#app .trade-header-box .ticker-last-box .last';
+const AMOUNT_INPUT_SELECTOR = '#app .place-order-form-box .place-order-input-box input[name="size"]';
 
-      this.openStopLossPanel();
-      requestAnimationFrame(loop);
-    };
+@singleton()
+export class UiService {
+  public getSymbol(): null | string {
+    const symbol = document.querySelector<HTMLSpanElement>(SYMBOL_SELECTOR)?.innerText || null;
 
-    loop();
+    if (symbol && symbol !== SYMBOL_PLACEHOLDER) {
+      return symbol;
+    }
+
+    return null;
   }
 
-  openStopLossPanel() {
-    const stops = document.querySelectorAll<HTMLLabelElement>('.place-order-stop-selector label');
-
-    stops.forEach((label) => {
-      const text = String(label.innerText).toLowerCase();
-
-      if (text === 'stop loss') {
-        const checkbox = label.querySelector<HTMLInputElement>('input[type=checkbox]');
-
-        if (checkbox && checkbox.checked !== true) {
-          checkbox.click();
-        }
-      }
-    });
+  public getLastPrice(): null | number {
+    const cursor = document.querySelector<HTMLDivElement>(LAST_PRICE_SELECTOR);
+    return extractPriceFromElement(cursor);
   }
 
-  openMarketPanel() {
-    const tabs = document.querySelectorAll<HTMLDivElement>(
-      '.place-order-inner-common .okui-tabs-pane-list-flex > .okui-tabs-pane',
-    );
+  public getLastPriceFromTopBar(): null | number {
+    const cursor = document.querySelector<HTMLDivElement>(LAST_PRICE_TOP_BAR_SELECTOR);
+    return extractPriceFromElement(cursor);
+  }
 
-    tabs.forEach((tab) => {
-      const label = String(tab.innerText).toLowerCase();
+  public getStopLoss(): null | number {
+    const cursor = document.querySelector<HTMLDivElement>(CURSOR_SELECTOR);
+    return extractPriceFromElement(cursor);
+  }
 
-      if (label === 'market') {
-        tab.click();
-      }
-    });
+  public getStopLossInput() {
+    const stopLossElement = document.querySelector<HTMLInputElement>(STOP_LOSS_INPUT_SELECTOR);
+    return stopLossElement;
+  }
+
+  public changeStopLossInput(value: number) {
+    const stopLossInput = this.getStopLossInput();
+    if (stopLossInput) {
+      triggerInputChange(stopLossInput, value);
+    }
+  }
+
+  public setAmount(amount: number) {
+    const amountInput = document.querySelector<HTMLInputElement>(AMOUNT_INPUT_SELECTOR);
+    if (amountInput) {
+      triggerInputChange(amountInput, amount);
+    }
   }
 }
-
-export default new UiService();
