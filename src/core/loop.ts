@@ -13,7 +13,7 @@ export class Loop extends BaseService {
 
       this.tick();
       requestAnimationFrame(loopTick);
-      // setTimeout(() => loopTick(), 100);
+      // setTimeout(() => loopTick(), 500);
     };
 
     this.isRunning = true;
