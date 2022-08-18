@@ -1,7 +1,9 @@
 import { singleton } from 'tsyringe';
 import BaseService from '../base/base.service';
+import { config } from '../config';
 import { Loop } from '../core/loop';
-import { calcAmount } from '../lib';
+import { calcAmount, calculatePosition } from '../lib';
+import { log } from '../log';
 import { CurrentPriceService } from './current-price.service';
 import { StopLossService } from './stop-loss.service';
 import { UiService } from './ui/ui.service';
@@ -22,8 +24,20 @@ export class AmountService extends BaseService {
     const currentPrice = this.currentPriceService.lastPrice;
 
     if (stopLossPrice !== null && currentPrice !== null) {
-      const amount = calcAmount(currentPrice, stopLossPrice, 1);
-      this.uiService.setAmount(amount);
+      const position = calculatePosition({
+        maxRisk: config.maxRisk,
+        takerFee: config.takerFee,
+        makerFee: config.makerFee,
+        openPrice: currentPrice,
+        stopLossPrice,
+        entryOrderType: 'market',
+        tpOrderType: 'market',
+        slOrderType: 'market',
+      });
+
+      // const amount = calcAmount(currentPrice, stopLossPrice, config.maxRisk);
+
+      this.uiService.setAmount(position.maxPosSizeUSD);
     }
   }
 
