@@ -1,9 +1,11 @@
 {
   "scripts": {
     "dev": "parcel watch src/index.ts src/*.html --public-url '.'",
-    "build": "parcel build src/index.ts src/*.html --public-url '.'",
+    "build:parcel": "parcel build src/index.ts src/*.html --public-url '.'",
+    "build": "npm run build:parcel && npm run zip",
     "clean": "rm -rf node_modules .parcel-cache",
-    "format": "prettier --write src"
+    "format": "prettier --write src",
+    "zip": "zip -r extension.zip ./dist ./static icon.png manifest.json"
   },
   "devDependencies": {
     "@parcel/config-default": "^2.7.0",
