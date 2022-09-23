@@ -6,7 +6,7 @@
     "strictNullChecks": true,
     "strictFunctionTypes": true,
     "isolatedModules": true,
-    "types": ["reflect-metadata"],
+    "types": ["reflect-metadata", "chrome"],
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
     "outDir": "./dist"

@@ -1,9 +1,9 @@
 import { singleton } from 'tsyringe';
 import BaseService from '../base/base.service';
+import { UserConfig } from '../config/user.config';
 import { config } from '../config';
 import { Loop } from '../core/loop';
 import { calcAmount, calculatePosition } from '../lib';
-import { log } from '../log';
 import { CurrentPriceService } from './current-price.service';
 import { StopLossService } from './stop-loss.service';
 import { UiService } from './ui/ui.service';
@@ -15,6 +15,7 @@ export class AmountService extends BaseService {
     private readonly uiService: UiService,
     private readonly currentPriceService: CurrentPriceService,
     private readonly stopLossService: StopLossService,
+    private readonly userConfig: UserConfig,
   ) {
     super();
   }

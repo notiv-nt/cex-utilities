@@ -1,13 +1,15 @@
 {
   "scripts": {
-    "dev": "parcel watch src/index.ts",
-    "build": "parcel build src/index.ts",
+    "dev": "parcel watch src/index.ts src/**/*.html --public-url '.'",
+    "build": "parcel build src/index.ts src/**/*.html --public-url '.'",
     "clean": "rm -rf node_modules .parcel-cache",
     "format": "prettier --write src"
   },
   "devDependencies": {
     "@parcel/config-default": "^2.6.2",
     "@parcel/transformer-typescript-tsc": "^2.6.2",
+    "@types/chrome": "^0.0.196",
+    "@types/lodash": "^4.14.185",
     "@typescript-eslint/eslint-plugin": "^5.31.0",
     "@typescript-eslint/parser": "^5.31.0",
     "eslint": "^8.20.0",
@@ -17,11 +19,16 @@
     "eslint-plugin-import": "^2.25.2",
     "eslint-plugin-prettier": "^4.2.1",
     "eventemitter2": "^6.4.6",
+    "lodash": "^4.17.21",
     "parcel": "^2.6.2",
+    "postcss": "^8.4.16",
     "prettier": "^2.7.1",
     "process": "^0.11.10",
     "reflect-metadata": "^0.1.13",
     "tsyringe": "^4.7.0",
     "typescript": "^4.7.4"
+  },
+  "dependencies": {
+    "tailwindcss": "^3.1.8"
   }
 }

@@ -5,4 +5,6 @@ import { App } from './app';
 const app = container.resolve(App);
 
 // TODO: app.on('ready')
-setTimeout(() => app.start(), 1000);
+setTimeout(() => {
+  app.start().catch(console.error);
+}, 1000);

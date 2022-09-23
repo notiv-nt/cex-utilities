@@ -1,8 +1,8 @@
 import { singleton } from 'tsyringe';
 import BaseService from '../base/base.service';
 import { Loop } from '../core/loop';
-import { ShortcutsService } from './shortcuts.service';
 import { SymbolService } from './symbol.service';
+import { TradingviewIframeService } from './tradingview-iframe.service';
 import { UiService } from './ui/ui.service';
 
 @singleton()
@@ -12,8 +12,8 @@ export class StopLossService extends BaseService {
   constructor(
     private readonly loop: Loop,
     private readonly uiService: UiService,
-    private readonly shortcutsService: ShortcutsService,
     private readonly symbolService: SymbolService,
+    private readonly tradingviewIframeService: TradingviewIframeService,
   ) {
     super();
 
@@ -24,11 +24,11 @@ export class StopLossService extends BaseService {
 
   public watchStopLoss() {
     this.loop.on('tick', () => {
-      if (!this.shortcutsService.isAltPressed) {
-        return;
-      }
+      let stopLoss: null | number = null;
 
-      const stopLoss = this.uiService.getStopLoss();
+      if (this.tradingviewIframeService.pressedKeys.Shift && this.tradingviewIframeService.lastPrice !== null) {
+        stopLoss = this.tradingviewIframeService.lastPrice;
+      }
 
       if (stopLoss !== null && this.stopLoss !== stopLoss) {
         this.stopLoss = stopLoss;

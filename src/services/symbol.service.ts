@@ -14,7 +14,7 @@ export class SymbolService extends BaseService {
   public watchSymbol() {
     this.loop.on('tick', () => {
       const symbol = this.uiService.getSymbol();
-      const lastPrice = this.uiService.getLastPriceFromTopBar();
+      const lastPrice = this.uiService.getLastPrice();
 
       if (symbol && symbol !== this.symbol && lastPrice) {
         this.symbol = symbol;

@@ -6,10 +6,25 @@
   "icons": {
     "128": "icon.png"
   },
+  "action": {
+    "default_popup": "dist/popup/popup.html"
+  },
   "content_scripts": [
     {
       "matches": ["https://www.okx.com/trade-swap/*"],
       "js": ["dist/index.js"]
+    },
+    {
+      "matches": ["https://www.okx.com/tradingview/static/en-tv-chart*"],
+      "all_frames": true,
+      "js": ["static/tv-iframe.js"]
+    }
+  ],
+  "permissions": ["storage"],
+  "web_accessible_resources": [
+    {
+      "resources": ["static/*"],
+      "matches": ["https://www.okx.com/*"]
     }
   ]
 }

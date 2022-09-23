@@ -3,9 +3,7 @@ import { extractPriceFromElement, triggerInputChange } from '../../lib';
 
 const SYMBOL_PLACEHOLDER = '--';
 const SYMBOL_SELECTOR = '#app .watch-drop-box .ticker-title';
-const CURSOR_SELECTOR = '#okline-wrap .okline-indic-scale.okline-indic-scale-rangeSelect';
 const STOP_LOSS_INPUT_SELECTOR = '#app .place-order-form-box .place-order-input-box input[name="slTriggerPx"]';
-const LAST_PRICE_SELECTOR = '#okline-wrap .okline-indic-scale.okline-indic-scale-lastClose';
 const LAST_PRICE_TOP_BAR_SELECTOR = '#app .trade-header-box .ticker-last-box .last';
 const AMOUNT_INPUT_SELECTOR = '#app .place-order-form-box .place-order-input-box input[name="size"]';
 
@@ -22,17 +20,7 @@ export class UiService {
   }
 
   public getLastPrice(): null | number {
-    const cursor = document.querySelector<HTMLDivElement>(LAST_PRICE_SELECTOR);
-    return extractPriceFromElement(cursor);
-  }
-
-  public getLastPriceFromTopBar(): null | number {
     const cursor = document.querySelector<HTMLDivElement>(LAST_PRICE_TOP_BAR_SELECTOR);
-    return extractPriceFromElement(cursor);
-  }
-
-  public getStopLoss(): null | number {
-    const cursor = document.querySelector<HTMLDivElement>(CURSOR_SELECTOR);
     return extractPriceFromElement(cursor);
   }
 
