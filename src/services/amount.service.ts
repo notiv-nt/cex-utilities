@@ -23,8 +23,6 @@ export class AmountService extends BaseService {
     const stopLossPrice = this.stopLossService.stopLoss;
     const currentPrice = this.currentPriceService.lastPrice;
 
-    console.log(stopLossPrice, currentPrice);
-
     if (stopLossPrice !== null && currentPrice !== null) {
       const { config } = this.userConfig;
 
