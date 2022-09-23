@@ -22,9 +22,15 @@ function sendMessage(data) {
   parent.postMessage(message, '*');
 }
 
-setTimeout(() => {
-  const indicator = document.querySelector('.pane-legend .pane-legend-icon-container .pane-legend-icon.icon-hide');
-  if (indicator) {
-    indicator.click();
+
+(() => {
+  function loop() {
+    const indicator = document.querySelector('.pane-legend .pane-legend-icon-container .pane-legend-icon.delete');
+    if (indicator) {
+      indicator.click();
+    }
+    requestAnimationFrame(loop);
   }
-}, 2000);
+
+  loop();
+})()
