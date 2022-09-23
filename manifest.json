@@ -7,12 +7,15 @@
     "128": "icon.png"
   },
   "action": {
-    "default_popup": "dist/popup/popup.html"
+    "default_popup": "dist/popup.html"
   },
   "content_scripts": [
+    { "matches": ["https://www.okx.com/trade-swap/*"], "js": ["dist/index.js"] },
+    { "matches": ["https://www.okx.com/*/trade-swap/*"], "js": ["dist/index.js"] },
     {
-      "matches": ["https://www.okx.com/trade-swap/*"],
-      "js": ["dist/index.js"]
+      "matches": ["https://www.okx.com/tradingview/static/fr-tv-chart*"],
+      "all_frames": true,
+      "js": ["static/tv-iframe.js"]
     },
     {
       "matches": ["https://www.okx.com/tradingview/static/en-tv-chart*"],

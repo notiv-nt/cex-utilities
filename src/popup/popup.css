@@ -1,0 +1,33 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+body {
+  width: 300px;
+}
+
+.form-label {
+  font-weight: 600;
+}
+
+.form-input {
+  width: 100%;
+  padding: 3px 6px;
+  display: block;
+  border: 1px solid;
+  border-radius: 4px;
+}
+
+.btn {
+  background-color: rgb(37 99 235);
+  color: #fff;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5em 1.4em;
+}

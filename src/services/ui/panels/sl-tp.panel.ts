@@ -3,6 +3,7 @@ import { Loop } from '../../../core/loop';
 import { SymbolService } from '../../symbol.service';
 
 const ORDER_TYPE_TABS = '.place-order-stop-selector label';
+const stopLossTexts = ['stop loss', 'стоп-лосс', 'arrêter les pertes'];
 
 @singleton()
 export class SlTpPanel {
@@ -25,7 +26,7 @@ export class SlTpPanel {
     stops.forEach((label) => {
       const text = String(label.innerText).toLowerCase();
 
-      if (text === 'stop loss') {
+      if (stopLossTexts.includes(text)) {
         const checkbox = label.querySelector<HTMLInputElement>('input[type=checkbox]');
 
         if (checkbox && checkbox.checked !== true) {

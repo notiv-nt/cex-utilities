@@ -73,7 +73,11 @@ export function extractPriceFromElement(element: HTMLElement | null): number | n
   if (!element) {
     return null;
   }
-  const value = element.innerText.trim().replace(/[^\d.]/gm, '');
+  const value = element.innerText
+    .trim()
+    .replace(/[,]/gm, '.')
+    .replace(/[^\d.]/gm, '');
+
   const price = parseFloat(value);
   if (Number.isNaN(price)) {
     return null;

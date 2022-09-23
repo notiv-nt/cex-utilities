@@ -8,7 +8,6 @@ import { StopLossService } from './services/stop-loss.service';
 import { SymbolService } from './services/symbol.service';
 import { UserConfig } from './config/user.config';
 import { TradingviewIframeService } from './services/tradingview-iframe.service';
-import { log } from './lib/log';
 
 @singleton()
 export class App {
@@ -27,11 +26,8 @@ export class App {
   async start() {
     this.loop.start();
 
-    log('Loading config...');
-    const cfg = await this.userConfig.loadConfig();
-    log('Config loaded', cfg);
+    await this.userConfig.loadConfig();
 
-    log('Loading rest...');
     this.symbolService.watchSymbol();
     this.stopLossService.watchStopLoss();
     this.orderTypePanel.autoOpenMarketTab();
