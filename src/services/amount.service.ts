@@ -2,7 +2,7 @@ import { singleton } from 'tsyringe';
 import BaseService from '../base/base.service';
 import { UserConfig } from '../config/user.config';
 import { Loop } from '../core/loop';
-import { calcAmount, calculatePosition } from '../lib';
+import { calculatePosition } from '../lib';
 import { CurrentPriceService } from './current-price.service';
 import { StopLossService } from './stop-loss.service';
 import { UiService } from './ui/ui.service';
@@ -30,10 +30,11 @@ export class AmountService extends BaseService {
         maxRisk: config.max_risk,
         takerFee: config.taker_fee / 100,
         makerFee: config.maker_fee / 100,
+
         openPrice: currentPrice,
-        stopLossPrice,
         entryOrderType: 'market',
-        tpOrderType: 'market',
+
+        stopLossPrice,
         slOrderType: 'market',
       });
 

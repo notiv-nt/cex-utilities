@@ -4,7 +4,7 @@
   <form class="p-2" @submit.prevent="save">
     <label class="block mb-2">
       <div class="form-label">Max Risk</div>
-      <input type="number" class="form-input" v-model="config.max_risk" @input="save" step="1" />
+      <input type="number" class="form-input" v-model="config.max_risk" @input="save" step="0.1" />
     </label>
 
     <label class="block mb-2">
@@ -23,12 +23,9 @@
 
 <script lang="ts" setup>
 import { onMounted, reactive } from 'vue';
+import { defaultConfig } from '../config/default-config';
 
-const config = reactive({
-  max_risk: 1,
-  taker_fee: 0.1,
-  maker_fee: 0.08,
-});
+const config = reactive({ ...defaultConfig });
 
 function save() {
   console.log('save config', config)

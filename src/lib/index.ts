@@ -2,13 +2,11 @@ type OrderType = 'market' | 'limit';
 
 type PositionInput = {
   maxRisk: number; // in $
-  takerFee: number; // const
-  makerFee: number; // const
+  takerFee: number; // const in %
+  makerFee: number; // const in %
   openPrice: number;
   stopLossPrice: number;
-  targetPrice?: number;
   entryOrderType: OrderType;
-  tpOrderType: OrderType;
   slOrderType: OrderType;
 };
 
@@ -18,55 +16,28 @@ export function calculatePosition({
   makerFee,
   openPrice,
   stopLossPrice,
-  targetPrice,
   entryOrderType,
-  tpOrderType,
   slOrderType,
 }: PositionInput) {
-  // basic stuff
   const isLong = openPrice > stopLossPrice;
-
-  // risk : reward
-  // const rewardPerUnit = isLong ? targetPrice - openPrice : openPrice - targetPrice;
-  const riskPerUnit = isLong ? stopLossPrice - openPrice : openPrice - stopLossPrice;
-  // const riskReward = rewardPerUnit / -riskPerUnit;
-
-  // max position - calculating stop loss fee in
   const totalCostPerUnit = isLong ? stopLossPrice - openPrice : openPrice - stopLossPrice;
+  const entryFee = openPrice * getFee(entryOrderType) * (maxRisk / totalCostPerUnit) * -1;
+  const stopLossFee = stopLossPrice * getFee(slOrderType) * (maxRisk / totalCostPerUnit) * -1;
+
   const maxContracts = maxRisk / totalCostPerUnit;
-  const maxPosSizeUSD = (maxRisk / totalCostPerUnit) * openPrice;
 
-  // fees
-  const entryFee = openPrice * calcFee(entryOrderType) * maxContracts * -1;
-  const stopLossFee = stopLossPrice * calcFee(slOrderType) * maxContracts * -1;
-  // const takeProfitFee = targetPrice * calcFee(tpOrderType) * maxPosSize * -1;
-
-  // totals after deducting fees
-  // const totalReward = isLong
-  //   ? maxPosSize * targetPrice - maxPosSize * openPrice
-  //   : maxPosSize * openPrice - maxPosSize * targetPrice;
+  const maxPosSizeUSD = maxContracts * openPrice;
 
   return {
-    maxToRiskAmount: maxRisk,
-    // rewardPerUnit,
-    riskPerUnit,
-    // riskReward,
-    totalCostPerUnit,
     maxPosSizeUSD: Math.floor(Math.abs(maxPosSizeUSD)),
+    maxContracts: Math.floor(Math.abs(maxContracts)),
     entryFee,
     stopLossFee,
-    // takeProfitFee,
-    // totalReward,
-    maxContracts: Math.floor(Math.abs(maxContracts)),
   };
 
-  function calcFee(type: OrderType) {
-    return type === 'market' ? makerFee : takerFee;
+  function getFee(type: OrderType) {
+    return type === 'market' ? takerFee : makerFee;
   }
-}
-
-export function calcAmount(enterPrice: number, stopPrice: number, maxLoss: number) {
-  return Math.abs((enterPrice * maxLoss) / (stopPrice - enterPrice));
 }
 
 export function extractPriceFromElement(element: HTMLElement | null): number | null {
