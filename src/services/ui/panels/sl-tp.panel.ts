@@ -3,7 +3,7 @@ import { Loop } from '../../../core/loop';
 import { SymbolService } from '../../symbol.service';
 
 const ORDER_TYPE_TABS = '.place-order-stop-selector label';
-const stopLossTexts = ['stop loss', 'стоп-лосс', 'arrêter les pertes'];
+const stopLossTexts = ['tp/sl'];
 
 @singleton()
 export class SlTpPanel {
@@ -21,9 +21,9 @@ export class SlTpPanel {
   }
 
   public enableStopLoss() {
-    const stops = document.querySelectorAll<HTMLLabelElement>(ORDER_TYPE_TABS);
+    const labels = document.querySelectorAll<HTMLLabelElement>(ORDER_TYPE_TABS);
 
-    stops.forEach((label) => {
+    labels.forEach((label) => {
       const text = String(label.innerText).toLowerCase();
 
       if (stopLossTexts.includes(text)) {
