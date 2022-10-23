@@ -8,6 +8,7 @@ import { StopLossService } from './services/stop-loss.service';
 import { SymbolService } from './services/symbol.service';
 import { UserConfig } from './config/user.config';
 import { TradingviewIframeService } from './services/tradingview-iframe.service';
+import { AmountUiService } from './services/ui/amount-ui.service';
 
 @singleton()
 export class App {
@@ -21,6 +22,7 @@ export class App {
     private readonly amountService: AmountService,
     private readonly userConfig: UserConfig,
     private readonly tradingviewIframeService: TradingviewIframeService,
+    private readonly amountUiService: AmountUiService,
   ) {}
 
   async start() {
@@ -35,5 +37,6 @@ export class App {
     this.currentPriceService.watchCurrentPrice();
     this.amountService.watchAmount();
     this.tradingviewIframeService.setupListeners();
+    this.amountUiService.init();
   }
 }

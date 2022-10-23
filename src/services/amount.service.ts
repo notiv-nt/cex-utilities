@@ -5,6 +5,7 @@ import { Loop } from '../core/loop';
 import { calculatePosition } from '../lib';
 import { CurrentPriceService } from './current-price.service';
 import { StopLossService } from './stop-loss.service';
+import { AmountUiService } from './ui/amount-ui.service';
 import { UiService } from './ui/ui.service';
 
 @singleton()
@@ -15,6 +16,7 @@ export class AmountService extends BaseService {
     private readonly currentPriceService: CurrentPriceService,
     private readonly stopLossService: StopLossService,
     private readonly userConfig: UserConfig,
+    private readonly amountUiService: AmountUiService,
   ) {
     super();
   }
@@ -38,9 +40,11 @@ export class AmountService extends BaseService {
         slOrderType: 'market',
       });
 
-      // const amount = calcAmount(currentPrice, stopLossPrice, config.maxRisk);
+      if (!this.amountUiService.isManualAmount) {
+        // const amount = calcAmount(currentPrice, stopLossPrice, config.maxRisk);
 
-      this.uiService.setAmount(position.maxPosSizeUSD);
+        this.uiService.setAmount(position.maxPosSizeUSD);
+      }
     }
   }
 
