@@ -5,7 +5,8 @@
     "build": "npm run build:parcel && npm run zip",
     "clean": "rm -rf node_modules .parcel-cache",
     "format": "prettier --write src",
-    "zip": "zip -r extension.zip ./dist ./static icon.png manifest.json"
+    "zip": "zip -r extension.zip ./dist ./static icon.png manifest.json",
+    "lint": "eslint 'src/**/*.ts' --fix"
   },
   "devDependencies": {
     "@parcel/config-default": "^2.7.0",

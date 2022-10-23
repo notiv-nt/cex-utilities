@@ -16,6 +16,7 @@ export class TradingviewIframeService extends BaseService {
     });
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   private handleMessage(message: any) {
     if (message.keydown) {
       this.pressedKeys[message.keydown] = true;
