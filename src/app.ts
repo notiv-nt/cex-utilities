@@ -32,11 +32,14 @@ export class App {
 
     this.symbolService.watchSymbol();
     this.stopLossService.watchStopLoss();
-    this.orderTypePanel.autoOpenMarketTab();
     this.slTpPanel.autoEnableStopLoss();
     this.currentPriceService.watchCurrentPrice();
     this.amountService.watchAmount();
     this.tradingviewIframeService.setupListeners();
     this.amountUiService.init();
+
+    if (this.userConfig.config.auto_open_market_tab) {
+      this.orderTypePanel.openMarketTab();
+    }
   }
 }

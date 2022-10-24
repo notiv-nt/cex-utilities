@@ -17,7 +17,10 @@
       <input type="number" class="form-input" v-model="config.maker_fee" @input="save" step="0.01" />
     </label>
 
-    <button class="btn mt-4" type="submit">Save</button>
+    <label class="mb-2 flex items-center">
+      <input type="checkbox" v-model="config.auto_open_market_tab" @change="save">
+      <span class="ml-1">Auto open market tab</span>
+    </label>
   </form>
 </template>
 
@@ -34,7 +37,6 @@ function save() {
 
 onMounted(async () => {
   const storage = await chrome.storage.local.get('config');
-
 
   for (const [key, value] of Object.entries(storage.config)) {
     if (key in config) {
