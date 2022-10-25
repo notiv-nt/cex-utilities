@@ -6,6 +6,7 @@ const SYMBOL_SELECTOR = '#app .watch-drop-box .ticker-title';
 const STOP_LOSS_INPUT_SELECTOR = '#app .place-order-form-box .place-order-input-box input[name="slTriggerPx"]';
 const LAST_PRICE_TOP_BAR_SELECTOR = '#app .trade-header-box .ticker-last-box .last';
 const AMOUNT_INPUT_SELECTOR = '#app .place-order-form-box .place-order-input-box input[name="size"]';
+const PRICE_INPUT_SELECTOR = '#leftPoForm .place-order-input-box [name="price"]';
 
 @singleton()
 export class UiService {
@@ -25,14 +26,24 @@ export class UiService {
   }
 
   public getStopLossInput() {
-    const stopLossElement = document.querySelector<HTMLInputElement>(STOP_LOSS_INPUT_SELECTOR);
-    return stopLossElement;
+    return document.querySelector<HTMLInputElement>(STOP_LOSS_INPUT_SELECTOR);
+  }
+
+  public getPriceInput() {
+    return document.querySelector<HTMLInputElement>(PRICE_INPUT_SELECTOR);
+  }
+
+  public changePriceInput(value: number) {
+    const input = this.getPriceInput();
+    if (input) {
+      triggerInputChange(input, value);
+    }
   }
 
   public changeStopLossInput(value: number) {
-    const stopLossInput = this.getStopLossInput();
-    if (stopLossInput) {
-      triggerInputChange(stopLossInput, value);
+    const input = this.getStopLossInput();
+    if (input) {
+      triggerInputChange(input, value);
     }
   }
 

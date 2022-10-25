@@ -9,6 +9,7 @@ import { SymbolService } from './services/symbol.service';
 import { UserConfig } from './config/user.config';
 import { TradingviewIframeService } from './services/tradingview-iframe.service';
 import { AmountUiService } from './services/ui/amount-ui.service';
+import { PriceService } from './services/price.service';
 
 @singleton()
 export class App {
@@ -16,6 +17,7 @@ export class App {
     private readonly loop: Loop,
     private readonly symbolService: SymbolService,
     private readonly stopLossService: StopLossService,
+    private readonly priceService: PriceService,
     private readonly orderTypePanel: OrderTypePanel,
     private readonly slTpPanel: SlTpPanel,
     private readonly currentPriceService: CurrentPriceService,
@@ -32,6 +34,7 @@ export class App {
 
     this.symbolService.watchSymbol();
     this.stopLossService.watchStopLoss();
+    this.priceService.watchPrice();
     this.slTpPanel.autoEnableStopLoss();
     this.currentPriceService.watchCurrentPrice();
     this.amountService.watchAmount();
@@ -39,7 +42,10 @@ export class App {
     this.amountUiService.init();
 
     if (this.userConfig.config.auto_open_market_tab) {
-      this.orderTypePanel.openMarketTab();
+      // TODO: rewrite this hack:  app.on('ready')
+      setTimeout(() => {
+        this.orderTypePanel.openMarketTab();
+      }, 500);
     }
   }
 }
