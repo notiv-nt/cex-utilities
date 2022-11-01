@@ -8,3 +8,5 @@ export type IUserConfig = {
 };
 
 export type OrderHoldKey = 'Shift' | 'Control' | 'Alt' | 'Meta';
+
+export type OrderTabs = 'MARKET' | 'LIMIT' | 'STOP' | 'TRAILING_STOP' | 'ADVANCED_LIMIT';

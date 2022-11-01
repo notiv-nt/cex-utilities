@@ -4,6 +4,7 @@ import { UserConfig } from '../config/user.config';
 import { Loop } from '../core/loop';
 import { calculatePosition } from '../lib';
 import { CurrentPriceService } from './current-price.service';
+import { PriceService } from './price.service';
 import { StopLossService } from './stop-loss.service';
 import { AmountUiService } from './ui/amount-ui.service';
 import { UiService } from './ui/ui.service';
@@ -17,34 +18,39 @@ export class AmountService extends BaseService {
     private readonly stopLossService: StopLossService,
     private readonly userConfig: UserConfig,
     private readonly amountUiService: AmountUiService,
+    private readonly priceService: PriceService,
   ) {
     super();
   }
 
   private setAmount() {
+    if (this.amountUiService.isManualAmount) {
+      return;
+    }
+
+    const { config } = this.userConfig;
+
     const stopLossPrice = this.stopLossService.stopLoss;
     const currentPrice = this.currentPriceService.lastPrice;
+    const limitOrderPrice = this.priceService.price;
 
-    if (stopLossPrice !== null && currentPrice !== null) {
-      const { config } = this.userConfig;
+    const isLimitOrder = this.uiService.getPriceInput() && this.priceService.price !== null;
+    const entryPrice = isLimitOrder ? limitOrderPrice : currentPrice;
 
+    if (stopLossPrice !== null && entryPrice !== null) {
       const position = calculatePosition({
         maxRisk: config.max_risk,
         takerFee: config.taker_fee / 100,
         makerFee: config.maker_fee / 100,
 
-        openPrice: currentPrice,
-        entryOrderType: 'market',
+        openPrice: entryPrice,
+        entryOrderType: isLimitOrder ? 'limit' : 'market',
 
         stopLossPrice,
         slOrderType: 'market',
       });
 
-      if (!this.amountUiService.isManualAmount) {
-        // const amount = calcAmount(currentPrice, stopLossPrice, config.maxRisk);
-
-        this.uiService.setAmount(position.maxPosSizeUSD);
-      }
+      this.uiService.setAmount(position.maxPosSizeUSD);
     }
   }
 

@@ -40,6 +40,7 @@ export class App {
     this.amountService.watchAmount();
     this.tradingviewIframeService.setupListeners();
     this.amountUiService.init();
+    this.orderTypePanel.watchTabs();
 
     if (this.userConfig.config.auto_open_market_tab) {
       // TODO: rewrite this hack:  app.on('ready')

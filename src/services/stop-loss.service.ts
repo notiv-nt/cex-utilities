@@ -4,6 +4,7 @@ import { UserConfig } from '../config/user.config';
 import { Loop } from '../core/loop';
 import { SymbolService } from './symbol.service';
 import { TradingviewIframeService } from './tradingview-iframe.service';
+import { OrderTypePanel } from './ui/panels/order-type.panel';
 import { UiService } from './ui/ui.service';
 
 @singleton()
@@ -16,8 +17,15 @@ export class StopLossService extends BaseService {
     private readonly symbolService: SymbolService,
     private readonly tradingviewIframeService: TradingviewIframeService,
     private readonly userConfig: UserConfig,
+    private readonly orderTypePanel: OrderTypePanel,
   ) {
     super();
+
+    this.orderTypePanel.on('change-tab', () => {
+      setTimeout(() => {
+        this.uiService.changeStopLossInput(this.stopLoss as number);
+      }, 20);
+    });
 
     this.symbolService.on('change', () => {
       this.stopLoss = null;
