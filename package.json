@@ -2,8 +2,8 @@
   "scripts": {
     "dev": "parcel watch src/index.ts src/*.html --public-url '.'",
     "build:parcel": "parcel build src/index.ts src/*.html --public-url '.'",
-    "build": "npm run build:parcel && npm run zip",
-    "clean": "rm -rf dist .parcel-cache",
+    "build": "npm run clean && npm run build:parcel && npm run zip",
+    "clean": "rm -rf dist",
     "format": "prettier --write src",
     "zip": "zip -r extension.zip ./dist ./static icon.png manifest.json",
     "lint": "eslint 'src/**/*.ts' --fix"
