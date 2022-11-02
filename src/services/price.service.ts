@@ -2,6 +2,7 @@ import { singleton } from 'tsyringe';
 import BaseService from '../base/base.service';
 import { UserConfig } from '../config/user.config';
 import { Loop } from '../core/loop';
+import { parsePriceInput } from '../lib';
 import { TradingviewIframeService } from './tradingview-iframe.service';
 import { OrderTypePanel } from './ui/panels/order-type.panel';
 import { UiService } from './ui/ui.service';
@@ -52,5 +53,9 @@ export class PriceService extends BaseService {
         this.emit('change', price);
       }
     });
+  }
+
+  public getLimitPrice() {
+    return parsePriceInput(this.uiService.getPriceInput());
   }
 }

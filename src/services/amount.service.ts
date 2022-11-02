@@ -30,9 +30,9 @@ export class AmountService extends BaseService {
 
     const { config } = this.userConfig;
 
-    const stopLossPrice = this.stopLossService.stopLoss;
+    const stopLossPrice = this.stopLossService.getStopLossPrice();
     const currentPrice = this.currentPriceService.lastPrice;
-    const limitOrderPrice = this.priceService.price;
+    const limitOrderPrice = this.priceService.getLimitPrice();
 
     const isLimitOrder = this.uiService.getPriceInput() && this.priceService.price !== null;
     const entryPrice = isLimitOrder ? limitOrderPrice : currentPrice;

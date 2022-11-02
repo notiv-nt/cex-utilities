@@ -2,6 +2,7 @@ import { singleton } from 'tsyringe';
 import BaseService from '../base/base.service';
 import { UserConfig } from '../config/user.config';
 import { Loop } from '../core/loop';
+import { parsePriceInput } from '../lib';
 import { SymbolService } from './symbol.service';
 import { TradingviewIframeService } from './tradingview-iframe.service';
 import { OrderTypePanel } from './ui/panels/order-type.panel';
@@ -47,5 +48,9 @@ export class StopLossService extends BaseService {
         this.emit('change', stopLoss);
       }
     });
+  }
+
+  public getStopLossPrice() {
+    return parsePriceInput(this.uiService.getStopLossInput());
   }
 }

@@ -68,3 +68,14 @@ export function triggerInputChange(node, value: string | number = '') {
     node.dispatchEvent(event);
   }
 }
+
+export function parsePriceInput(input: HTMLInputElement | null) {
+  if (!input) {
+    return null;
+  }
+  const parsedValue = parseFloat(input.value);
+  if (Number.isNaN(parsedValue)) {
+    return null;
+  }
+  return parsedValue;
+}
