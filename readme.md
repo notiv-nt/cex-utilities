@@ -11,4 +11,4 @@ How to use:
 3. Go to Trade > Perpetual swaps.
 4. Select TradingView chart.
 5. Hold shift and move the cursor over the chart; you should see the stop-loss price being changed. (if not, click on the chart)
-6. The same for enter price but hold the alt key (configurable).
+6. The same for the enter price but hold the alt key (configurable).
