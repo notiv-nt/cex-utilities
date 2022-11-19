@@ -46,8 +46,9 @@ export function extractPriceFromElement(element: HTMLElement | null): number | n
   }
   const value = element.innerText
     .trim()
-    .replace(/[,]/gm, '.')
-    .replace(/[^\d.]/gm, '');
+    // TODO: check number formats on different languages
+    // .replace(/[,]/gm, '.')
+    .replace(/[^\d.]+/gm, '');
 
   const price = parseFloat(value);
   if (Number.isNaN(price)) {
@@ -73,7 +74,7 @@ export function parsePriceInput(input: HTMLInputElement | null) {
   if (!input) {
     return null;
   }
-  const parsedValue = parseFloat(input.value);
+  const parsedValue = parseFloat(input.value.replace(/[^\d.]+/gim, ''));
   if (Number.isNaN(parsedValue)) {
     return null;
   }
