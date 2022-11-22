@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
-  "name": "OKX position size calculator",
+  "name": "OKX utilities",
   "description": "",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "icons": {
     "128": "icon.png"
   },
