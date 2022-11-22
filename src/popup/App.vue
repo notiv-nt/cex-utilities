@@ -41,6 +41,11 @@
       <input type="checkbox" v-model="config.auto_open_market_tab" @change="save" />
       <span class="ml-1">Auto open market tab</span>
     </label>
+
+    <label class="mb-2 flex items-center">
+      <input type="checkbox" v-model="config.hide_balance" @change="save" />
+      <span class="ml-1">Hide balance</span>
+    </label>
   </form>
 </template>
 

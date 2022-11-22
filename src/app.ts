@@ -10,6 +10,7 @@ import { UserConfig } from './config/user.config';
 import { TradingviewIframeService } from './services/tradingview-iframe.service';
 import { AmountUiService } from './services/ui/amount-ui.service';
 import { PriceService } from './services/price.service';
+import { StyleService } from './services/ui/style.service';
 
 @singleton()
 export class App {
@@ -25,6 +26,7 @@ export class App {
     private readonly userConfig: UserConfig,
     private readonly tradingviewIframeService: TradingviewIframeService,
     private readonly amountUiService: AmountUiService,
+    private readonly styleService: StyleService,
   ) {}
 
   async start() {
@@ -41,6 +43,7 @@ export class App {
     this.tradingviewIframeService.setupListeners();
     this.amountUiService.init();
     this.orderTypePanel.watchTabs();
+    this.styleService.loadStyles();
 
     if (this.userConfig.config.auto_open_market_tab) {
       // TODO: rewrite this hack:  app.on('ready')

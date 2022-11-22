@@ -23,11 +23,12 @@ export class UserConfig extends BaseService {
   async loadConfig() {
     const storage = await chrome.storage.local.get();
 
-    if (storage.config) {
-      this.config = storage.config;
-    } else {
-      this.config = { ...defaultConfig };
-    }
+    this.config = {
+      ...defaultConfig,
+      ...(storage.config || {}),
+    };
+
+    this.emit('change', this.config);
 
     log('Config loaded', this.config);
 

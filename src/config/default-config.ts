@@ -7,4 +7,5 @@ export const defaultConfig: IUserConfig = {
   auto_open_market_tab: false,
   sl_hold_key: 'Shift',
   price_hold_key: 'Alt',
+  hide_balance: false,
 };

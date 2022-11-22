@@ -5,6 +5,7 @@ export type IUserConfig = {
   auto_open_market_tab: boolean;
   sl_hold_key: OrderHoldKey;
   price_hold_key: OrderHoldKey;
+  hide_balance: boolean;
 };
 
 export type OrderHoldKey = 'Shift' | 'Control' | 'Alt' | 'Meta';
