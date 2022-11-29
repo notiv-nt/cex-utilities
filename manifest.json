@@ -11,6 +11,9 @@
   },
   "content_scripts": [
     { "matches": ["https://www.okx.com/trade-swap/*"], "js": ["dist/index.js"] },
+    { "matches": ["https://www.okx.com/trade-spot/*"], "js": ["dist/index.js"] },
+    { "matches": ["https://www.okx.com/trade-futures/*"], "js": ["dist/index.js"] },
+    { "matches": ["https://www.okx.com/trade-margin/*"], "js": ["dist/index.js"] },
     { "matches": ["https://www.okx.com/*/trade-swap/*"], "js": ["dist/index.js"] },
     {
       "matches": ["https://www.okx.com/tradingview/static/fr-tv-chart*"],
