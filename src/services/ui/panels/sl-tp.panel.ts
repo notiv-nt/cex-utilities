@@ -3,7 +3,15 @@ import { Loop } from '../../../core/loop';
 import { SymbolService } from '../../symbol.service';
 
 const ORDER_TYPE_TABS = '.place-order-stop-selector label';
-const stopLossTexts = ['tp/sl'];
+const stopLossTexts = [
+  'tp/sl',
+  'stop loss',
+  'Стоп-лосс',
+  '止损',
+  'Arrêter les pertes',
+  'Stop-Loss',
+  'Zatrzymaj stratę',
+].map((i) => i.toLowerCase());
 
 @singleton()
 export class SlTpPanel {
