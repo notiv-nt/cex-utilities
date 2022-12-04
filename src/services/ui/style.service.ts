@@ -2,7 +2,7 @@ import { singleton } from 'tsyringe';
 import { UserConfig } from '../../config/user.config';
 
 const HIDE_BALANCE = `
-  .avail-display-container [data-testid="max-asset"] {
+  .avail-display-container [class*="availableRow"]:first-child {
     display: none;
   }
 `;
