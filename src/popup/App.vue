@@ -46,6 +46,11 @@
       <input type="checkbox" v-model="config.hide_balance" @change="save" />
       <span class="ml-1">Hide balance</span>
     </label>
+
+    <label class="mb-2 flex items-center">
+      <input type="checkbox" v-model="config.include_fees" @change="save" />
+      <span class="ml-1">Include fees in order amount</span>
+    </label>
   </form>
 </template>
 

@@ -1,6 +1,6 @@
 type OrderType = 'market' | 'limit';
 
-type PositionInput = {
+export type PositionInput = {
   maxRisk: number; // in $
   takerFee: number; // const in %
   makerFee: number; // const in %
@@ -8,6 +8,16 @@ type PositionInput = {
   stopLossPrice: number;
   entryOrderType: OrderType;
   slOrderType: OrderType;
+};
+
+export type Position = {
+  maxPosSizeUSD: number;
+  maxContracts: number;
+  entryFee: number;
+  stopLossFee: number;
+  totalFee: number;
+  amount: number;
+  total: number;
 };
 
 export function calculatePosition({
@@ -18,7 +28,7 @@ export function calculatePosition({
   stopLossPrice,
   entryOrderType,
   slOrderType,
-}: PositionInput) {
+}: PositionInput): Position {
   const isLong = openPrice > stopLossPrice;
   const totalCostPerUnit = isLong ? stopLossPrice - openPrice : openPrice - stopLossPrice;
   const entryFee = openPrice * getFee(entryOrderType) * (maxRisk / totalCostPerUnit) * -1;
@@ -33,11 +43,33 @@ export function calculatePosition({
     maxContracts: Math.floor(Math.abs(maxContracts)),
     entryFee,
     stopLossFee,
+    totalFee: entryFee + stopLossFee,
+    amount: maxRisk,
+    total: maxRisk + entryFee + stopLossFee,
   };
 
   function getFee(type: OrderType) {
     return type === 'market' ? takerFee : makerFee;
   }
+}
+
+export function calculatePositionWithFees(args: PositionInput) {
+  let i = 0;
+  let lastRisk = args.maxRisk;
+  const maxTries = 30;
+
+  let position = calculatePosition({ ...args, maxRisk: lastRisk });
+
+  while (i++ < maxTries) {
+    const diff = args.maxRisk / position.total;
+    if (diff === 1) {
+      break;
+    }
+    lastRisk *= diff;
+    position = calculatePosition({ ...args, maxRisk: lastRisk });
+  }
+
+  return position;
 }
 
 export function extractPriceFromElement(element: HTMLElement | null): number | null {

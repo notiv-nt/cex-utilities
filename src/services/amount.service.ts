@@ -2,7 +2,7 @@ import { singleton } from 'tsyringe';
 import BaseService from '../base/base.service';
 import { UserConfig } from '../config/user.config';
 import { Loop } from '../core/loop';
-import { calculatePosition } from '../lib';
+import { calculatePosition, calculatePositionWithFees } from '../lib';
 import { CurrentPriceService } from './current-price.service';
 import { PriceService } from './price.service';
 import { StopLossService } from './stop-loss.service';
@@ -38,7 +38,8 @@ export class AmountService extends BaseService {
     const entryPrice = isLimitOrder ? limitOrderPrice : currentPrice;
 
     if (stopLossPrice !== null && entryPrice !== null) {
-      const position = calculatePosition({
+      const calcFn = config.include_fees ? calculatePositionWithFees : calculatePosition;
+      const position = calcFn({
         maxRisk: config.max_risk,
         takerFee: config.taker_fee / 100,
         makerFee: config.maker_fee / 100,

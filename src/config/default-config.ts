@@ -8,4 +8,5 @@ export const defaultConfig: IUserConfig = {
   sl_hold_key: 'Shift',
   price_hold_key: 'Alt',
   hide_balance: false,
+  include_fees: true,
 };

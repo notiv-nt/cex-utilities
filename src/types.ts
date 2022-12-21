@@ -6,6 +6,7 @@ export type IUserConfig = {
   sl_hold_key: OrderHoldKey;
   price_hold_key: OrderHoldKey;
   hide_balance: boolean;
+  include_fees: boolean;
 };
 
 export type OrderHoldKey = 'Shift' | 'Control' | 'Alt' | 'Meta';
