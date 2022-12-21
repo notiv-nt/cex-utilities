@@ -24,6 +24,8 @@ module.exports = {
 
   rules: {
     'no-console': 'off',
+    'no-plusplus': 'off',
+    'no-continue': 'off',
     'import/no-unresolved': 'off',
     'class-methods-use-this': 'off',
     'import/no-extraneous-dependencies': 'off',
