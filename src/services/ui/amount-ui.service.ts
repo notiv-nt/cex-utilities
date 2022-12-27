@@ -48,6 +48,7 @@ export class AmountUiService extends BaseService {
       cursor: pointer;
       border-bottom: 1px dashed;
       line-height: 1;
+      order: 9;
     `;
     button.setAttribute('data-amount-button', '42');
     label.appendChild(button);
