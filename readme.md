@@ -1,6 +1,6 @@
 > Warning: The extension is still under development, bugs are expected. Always review orders before placing.
 
-Position size calculator for okx futures market.
+Position size calculator for okx/binance futures market.
 
 This extension helps you calculate position size based on the stop-loss price on the chart and your max risk.
 

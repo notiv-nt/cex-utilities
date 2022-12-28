@@ -1,0 +1,36 @@
+{
+  "manifest_version": 3,
+  "name": "OKX utilities",
+  "description": "",
+  "version": "1.2.1",
+  "icons": {
+    "512": "misc/icon_512.png"
+  },
+  "action": {
+    "default_popup": "dist/popup.html"
+  },
+  "content_scripts": [
+    { "matches": ["https://www.okx.com/trade-swap/*"], "js": ["dist/main.js"] },
+    { "matches": ["https://www.okx.com/trade-spot/*"], "js": ["dist/main.js"] },
+    { "matches": ["https://www.okx.com/trade-futures/*"], "js": ["dist/main.js"] },
+    { "matches": ["https://www.okx.com/trade-margin/*"], "js": ["dist/main.js"] },
+    { "matches": ["https://www.okx.com/*/trade-swap/*"], "js": ["dist/main.js"] },
+    {
+      "matches": ["https://www.okx.com/tradingview/static/fr-tv-chart*"],
+      "all_frames": true,
+      "js": ["static/tv-iframe.js"]
+    },
+    {
+      "matches": ["https://www.okx.com/tradingview/static/en-tv-chart*"],
+      "all_frames": true,
+      "js": ["static/tv-iframe.js"]
+    }
+  ],
+  "permissions": ["storage"],
+  "web_accessible_resources": [
+    {
+      "resources": ["static/*"],
+      "matches": ["https://www.okx.com/*"]
+    }
+  ]
+}

@@ -105,7 +105,6 @@ dist
 
 # Custom
 .parcel-cache
-
 .local
 
 extension.zip
