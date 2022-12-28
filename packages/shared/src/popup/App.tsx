@@ -56,8 +56,8 @@ export function App() {
       <div className="bg-black text-white py-1 px-2 font-semibold">config</div>
 
       <form className="p-2" onSubmitCapture={save}>
-        <label className="block mb-2">
-          <div className="form-label">Max Risk</div>
+        <label className="block mb-3">
+          <div className="form-label">Max Risk in $</div>
           <input
             type="number"
             className="form-input"
@@ -68,77 +68,81 @@ export function App() {
           />
         </label>
 
-        <label className="block mb-2">
-          <div className="form-label">Maker fee</div>
-          <input
-            type="number"
-            className="form-input"
-            name="maker_fee"
-            value={config.maker_fee}
-            onInput={onChange}
-            step="0.01"
-          />
-        </label>
+        <div className="flex items-center gap-3 mb-3">
+          <label className="block grow">
+            <div className="form-label">Maker fee (%)</div>
+            <input
+              type="number"
+              className="form-input"
+              name="maker_fee"
+              value={config.maker_fee}
+              onInput={onChange}
+              step="0.01"
+            />
+          </label>
 
-        <label className="block mb-2">
-          <div className="form-label">Taker fee</div>
-          <input
-            type="number"
-            className="form-input"
-            name="taker_fee"
-            value={config.taker_fee}
-            onInput={onChange}
-            step="0.01"
-          />
-        </label>
+          <label className="block grow">
+            <div className="form-label">Taker fee (%)</div>
+            <input
+              type="number"
+              className="form-input"
+              name="taker_fee"
+              value={config.taker_fee}
+              onInput={onChange}
+              step="0.01"
+            />
+          </label>
+        </div>
 
-        <label className="block mb-2">
-          <div className="form-label">Stop-Loss key</div>
+        <div className="flex items-center gap-3 mb-3">
+          <label className="block grow">
+            <div className="form-label">Stop-Loss key</div>
 
-          <select className="form-input" name="sl_hold_key" value={config.sl_hold_key} onChange={onChange}>
-            {META_KEYS.map((key) => (
-              <option
-                value={key}
-                key={key}
-                disabled={[config.price_hold_key, config.tp_hold_key].includes(key as OrderHoldKey)}
-              >
-                {key}
-              </option>
-            ))}
-          </select>
-        </label>
+            <select className="form-input" name="sl_hold_key" value={config.sl_hold_key} onChange={onChange}>
+              {META_KEYS.map((key) => (
+                <option
+                  value={key}
+                  key={key}
+                  disabled={[config.price_hold_key, config.tp_hold_key].includes(key as OrderHoldKey)}
+                >
+                  {key}
+                </option>
+              ))}
+            </select>
+          </label>
 
-        <label className="block mb-2">
-          <div className="form-label">Take-profit key</div>
+          <label className="block grow">
+            <div className="form-label">Take-profit key</div>
 
-          <select className="form-input" name="tp_hold_key" value={config.tp_hold_key} onChange={onChange}>
-            {META_KEYS.map((key) => (
-              <option
-                value={key}
-                key={key}
-                disabled={[config.sl_hold_key, config.price_hold_key].includes(key as OrderHoldKey)}
-              >
-                {key}
-              </option>
-            ))}
-          </select>
-        </label>
+            <select className="form-input" name="tp_hold_key" value={config.tp_hold_key} onChange={onChange}>
+              {META_KEYS.map((key) => (
+                <option
+                  value={key}
+                  key={key}
+                  disabled={[config.sl_hold_key, config.price_hold_key].includes(key as OrderHoldKey)}
+                >
+                  {key}
+                </option>
+              ))}
+            </select>
+          </label>
 
-        <label className="block mb-2">
-          <div className="form-label">Enter price key</div>
+          <label className="block grow">
+            <div className="form-label">Enter price key</div>
 
-          <select className="form-input" name="price_hold_key" value={config.price_hold_key} onChange={onChange}>
-            {META_KEYS.map((key) => (
-              <option
-                value={key}
-                key={key}
-                disabled={[config.sl_hold_key, config.tp_hold_key].includes(key as OrderHoldKey)}
-              >
-                {key}
-              </option>
-            ))}
-          </select>
-        </label>
+            <select className="form-input" name="price_hold_key" value={config.price_hold_key} onChange={onChange}>
+              {META_KEYS.map((key) => (
+                <option
+                  value={key}
+                  key={key}
+                  disabled={[config.sl_hold_key, config.tp_hold_key].includes(key as OrderHoldKey)}
+                >
+                  {key}
+                </option>
+              ))}
+            </select>
+          </label>
+        </div>
 
         <label className="mb-2 flex items-center">
           <input
