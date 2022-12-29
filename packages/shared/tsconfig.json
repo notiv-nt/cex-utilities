@@ -5,8 +5,8 @@
     "lib": ["DOM", "DOM.Iterable", "ESNext"],
     "allowJs": false,
     "skipLibCheck": true,
+    "jsx": "preserve",
     "esModuleInterop": false,
-    "jsx": "react-jsx",
     "allowSyntheticDefaultImports": true,
     "strict": true,
     "forceConsistentCasingInFileNames": true,
@@ -15,7 +15,10 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "experimentalDecorators": true,
-    "emitDecoratorMetadata": true
+    "emitDecoratorMetadata": true,
+    "strictNullChecks": true,
+    "strictFunctionTypes": true
   },
-  "include": ["src", "../shared"]
+  "include": ["src", "../shared"],
+  "exclude": ["node_modules", "**/node_modules/*"]
 }
