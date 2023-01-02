@@ -26,7 +26,44 @@ export class UiService implements IUiService {
 
   public getLastPrice() {
     const cursor = document.querySelector<HTMLDivElement>(LAST_PRICE_TOP_BAR_SELECTOR);
-    return extractPriceFromElement(cursor);
+    return extractPriceFromElement(cursor?.innerText);
+  }
+
+  public setAmount(amount: number) {
+    const amountInputs = document.querySelectorAll<HTMLInputElement>(AMOUNT_INPUT_SELECTOR);
+    amountInputs.forEach((input) => triggerInputChange(input, amount));
+  }
+
+  private getStopLossInputs() {
+    return document.querySelectorAll<HTMLInputElement>(STOP_LOSS_INPUT_SELECTOR);
+  }
+
+  public getStopLossPrice() {
+    return [...this.getStopLossInputs()].map(parsePriceInput).filter((i) => i)[0] ?? null;
+  }
+
+  public changeStopLossInput(value: number) {
+    this.getStopLossInputs().forEach((input) => triggerInputChange(input, value));
+  }
+
+  private getTakeProfitInputs() {
+    return document.querySelectorAll<HTMLInputElement>(TAKE_PROFIT_INPUT_SELECTOR);
+  }
+
+  public changeTakeProfitInput(value: number) {
+    this.getTakeProfitInputs().forEach((input) => triggerInputChange(input, value));
+  }
+
+  public getPriceInputs() {
+    return document.querySelectorAll<HTMLInputElement>(PRICE_INPUT_SELECTOR);
+  }
+
+  public changePriceInput(value: number) {
+    this.getPriceInputs().forEach((input) => triggerInputChange(input, value));
+  }
+
+  public getLimitPrice() {
+    return [...this.getPriceInputs()].map(parsePriceInput).filter((i) => i)[0] ?? null;
   }
 
   public patchIframe() {
@@ -44,58 +81,5 @@ export class UiService implements IUiService {
     };
 
     this.loop.on('tick', patch);
-  }
-
-  public getStopLossInputs() {
-    return document.querySelectorAll<HTMLInputElement>(STOP_LOSS_INPUT_SELECTOR);
-  }
-
-  public changeStopLossInput(value: number) {
-    this.getStopLossInputs().forEach((input) => {
-      if (input) {
-        triggerInputChange(input, value);
-      }
-    });
-  }
-
-  public getTakeProfitInputs() {
-    return [...document.querySelectorAll<HTMLInputElement>(TAKE_PROFIT_INPUT_SELECTOR)];
-  }
-
-  public changeTakeProfitInput(value: number) {
-    this.getTakeProfitInputs().forEach((input) => {
-      if (input) {
-        triggerInputChange(input, value);
-      }
-    });
-  }
-
-  public getPriceInputs() {
-    return [...document.querySelectorAll<HTMLInputElement>(PRICE_INPUT_SELECTOR)];
-  }
-
-  public changePriceInput(value: number) {
-    this.getPriceInputs().forEach((input) => {
-      if (input) {
-        triggerInputChange(input, value);
-      }
-    });
-  }
-
-  public getLimitPrice() {
-    return parsePriceInput(this.getPriceInputs()[0]);
-  }
-
-  public getStopLossPrice() {
-    return parsePriceInput(this.getStopLossInputs()[0]);
-  }
-
-  public setAmount(amount: number) {
-    const amountInputs = document.querySelectorAll<HTMLInputElement>(AMOUNT_INPUT_SELECTOR);
-    amountInputs.forEach((input) => {
-      if (input) {
-        triggerInputChange(input, amount);
-      }
-    });
   }
 }

@@ -3,31 +3,35 @@ export function log(...msg: any) {
   console.log('[Utilities]', ...msg);
 }
 
-export function extractPriceFromElement(element: HTMLElement | null): number | null {
-  if (!element) {
-    return null;
+export function extractPriceFromElement(text: string | undefined): number | null {
+  if (!text) return null;
+  let str = text.trim().replace(/[^\d.,]+/gm, '');
+  const [hasComma, commaIndex, hasDot, dotIndex] = [
+    str.includes(','),
+    str.indexOf(','),
+    str.includes('.'),
+    str.indexOf('.'),
+  ];
+  if (hasComma && hasDot && commaIndex < dotIndex) {
+    str = str.replaceAll(',', '');
+  } else if (hasComma && hasDot && commaIndex > dotIndex) {
+    str = str.replaceAll('.', '').replaceAll(',', '.');
+  } else if (hasComma && !hasDot) {
+    str = str.replaceAll(',', '.');
   }
-  const value = element.innerText
-    .trim()
-    // TODO: check number formats on different languages
-    // .replace(/[,]/gm, '.')
-    .replace(/[^\d.]+/gm, '');
-
-  const price = parseFloat(value);
-  if (Number.isNaN(price)) {
-    return null;
-  }
-  return price;
+  const price = parseFloat(str);
+  return Number.isNaN(price) ? null : price;
 }
 
 export function triggerInputChange(node: any, value: string | number = '') {
   /* eslint-disable no-proto */
+  if (!node?.__proto__?.constructor) {
+    return;
+  }
   const inputTypes = [window.HTMLInputElement, window.HTMLSelectElement, window.HTMLTextAreaElement];
-
   if (inputTypes.includes(node.__proto__.constructor)) {
     const setValue = Object.getOwnPropertyDescriptor(node.__proto__, 'value')?.set;
     const event = new Event('input', { bubbles: true });
-
     setValue?.call(node, value);
     node.dispatchEvent(event);
   }

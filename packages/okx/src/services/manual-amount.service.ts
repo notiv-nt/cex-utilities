@@ -5,7 +5,7 @@ import { log } from '../../../shared/src/lib';
 import { AmountService } from '../../../shared/src/services/amount.service';
 
 @singleton()
-export class AmountUiService extends BaseService {
+export class ManualAmountService extends BaseService {
   private uiButton!: HTMLDivElement;
 
   constructor(private readonly loop: Loop, private readonly amountService: AmountService) {

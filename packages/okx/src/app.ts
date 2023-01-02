@@ -11,7 +11,7 @@ import { TradingviewIframeService } from '../../shared/src/services/tradingview-
 import { StyleService } from '../../shared/src/ui/style.service';
 import { OrderTypePanel } from './panels/order-type.panel';
 import { SlTpPanel } from './panels/sl-tp.panel';
-import { AmountUiService } from './services/amount-ui.service';
+import { ManualAmountService } from './services/manual-amount.service';
 import { GodService } from './services/god.service';
 import { UiService } from './services/okx-ui.service';
 import { TakeProfitService } from '../../shared/src/services/take-profit.service';
@@ -29,7 +29,7 @@ export class App {
     private readonly slTpPanel: SlTpPanel,
     private readonly currentPriceService: CurrentPriceService,
     private readonly priceService: PriceService,
-    private readonly amountUiService: AmountUiService,
+    private readonly manualAmountService: ManualAmountService,
     private readonly amountService: AmountService,
     private readonly styleService: StyleService,
     private readonly godService: GodService,
@@ -47,7 +47,7 @@ export class App {
     this.orderTypePanel.init();
     this.slTpPanel.init();
     this.currentPriceService.init();
-    this.amountUiService.init();
+    this.manualAmountService.init();
     this.styleService.init();
     this.priceService.init();
     this.amountService.init();
