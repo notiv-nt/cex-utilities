@@ -1,4 +1,6 @@
 export interface IUiService {
+  init: () => void;
+
   getSymbol: () => null | string;
   getLastPrice: () => null | number;
 

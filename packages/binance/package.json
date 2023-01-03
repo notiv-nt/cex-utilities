@@ -1,0 +1,14 @@
+{
+  "name": "binance-utilities",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "webpack -w",
+    "build:webpack": "webpack build",
+    "build": "npm run clean && npm run build:webpack && npm run zip",
+    "clean": "rm -rf dist",
+    "zip": "zip -r extension.zip ./dist ./static ./misc manifest.json",
+    "lint": "eslint 'src/**/*.ts' --fix"
+  }
+}

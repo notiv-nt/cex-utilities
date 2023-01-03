@@ -3,14 +3,14 @@ import { Loop } from '../../../shared/src/base/loop';
 import type { IUiService } from '../../../shared/src/contracts/ui.service';
 import { extractPriceFromElement, log, parsePriceInput, triggerInputChange } from '../../../shared/src/lib';
 
-const SYMBOL_PLACEHOLDER = '--';
-const SYMBOL_SELECTOR = '#app .watch-drop-box .ticker-title';
-const LAST_PRICE_TOP_BAR_SELECTOR = '#app .trade-header-box .ticker-last-box .last';
-const IFRAME_SELECTOR = '.tv-chart-box > iframe[name*="tradingview_"]';
-const STOP_LOSS_INPUT_SELECTOR = '#app .place-order-form-box input[name="slTriggerPx"]';
-const TAKE_PROFIT_INPUT_SELECTOR = '#app .place-order-form-box input[name="tpTriggerPx"]';
-const PRICE_INPUT_SELECTOR = '#leftPoForm [name="price"], #rightPoForm [name="price"]';
-const AMOUNT_INPUT_SELECTOR = '#app .place-order-form-box input[name="size"]';
+const SYMBOL_SELECTOR = '.ticker-wrap h1';
+const LAST_PRICE_TOP_BAR_SELECTOR =
+  '.ticker-wrap > div:first-child > div:first-child > div:first-child > div:last-child';
+const IFRAME_SELECTOR = 'iframe[name*="tradingview_"][id*="tradingview_"]';
+const STOP_LOSS_INPUT_SELECTOR = '[name="orderForm"] [name="stopLossStopPrice"]';
+const TAKE_PROFIT_INPUT_SELECTOR = '[name="orderForm"] [name="takeProfitStopPrice"]';
+const PRICE_INPUT_SELECTOR = '[name="orderForm"] [name="limitPrice"], [name="orderForm"] [name="triggerPrice"]';
+const AMOUNT_INPUT_SELECTOR = '[name="orderForm"] [name="unitAmount"]';
 
 @singleton()
 export class UiService implements IUiService {
@@ -22,10 +22,7 @@ export class UiService implements IUiService {
 
   public getSymbol() {
     const symbol = document.querySelector<HTMLSpanElement>(SYMBOL_SELECTOR)?.innerText ?? null;
-    if (symbol && symbol !== SYMBOL_PLACEHOLDER) {
-      return symbol;
-    }
-    return null;
+    return symbol ? symbol.trim() : null;
   }
 
   public getLastPrice() {

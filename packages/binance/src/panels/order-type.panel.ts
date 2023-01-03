@@ -3,10 +3,8 @@ import BaseService from '../../../shared/src/base/base.service';
 import { Loop } from '../../../shared/src/base/loop';
 import { MARKET_TAB_TEXTS } from '../constants';
 
-const PANEL_TABS =
-  '.place-order-inner-common .okui-tabs-pane-list-container > .okui-tabs-pane-list-flex > .okui-tabs-pane';
-const NESTED_TAB_SELECTOR = '.okui-select-text-value > span';
-const ACTIVE_TAB_CLASS = 'okui-tabs-pane-underline-active';
+const PANEL_TABS = '[name="orderForm"] .order-tabs [id*=tab] .tab';
+const ACTIVE_TAB_CLASS = 'active';
 
 @singleton()
 export class OrderTypePanel extends BaseService {
@@ -33,8 +31,7 @@ export class OrderTypePanel extends BaseService {
 
       tabs.forEach((tab) => {
         if (tab.classList.contains(ACTIVE_TAB_CLASS)) {
-          const span = tab.querySelector<HTMLSpanElement>(NESTED_TAB_SELECTOR);
-          const newSelectedTab = (span ? span.innerText : tab.innerText).toLowerCase();
+          const newSelectedTab = tab.innerText.toLowerCase();
 
           if (newSelectedTab && this.currentTab !== newSelectedTab) {
             this.currentTab = newSelectedTab;

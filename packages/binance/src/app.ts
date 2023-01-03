@@ -1,26 +1,23 @@
 import { container, injectable } from 'tsyringe';
-import { OrderTypePanel } from './panels/order-type.panel';
-import { SlTpPanel } from './panels/sl-tp.panel';
-import { ManualAmountService } from './services/manual-amount.service';
-import { GodService } from './services/god.service';
 import { BaseApp } from '../../shared/src/base/base-app';
 import { UserConfig } from '../../shared/src/config/user.config';
+import { OrderTypePanel } from './panels/order-type.panel';
+import { GodService } from './services/god.service';
+import { ManualAmountService } from './services/manual-amount.service';
 
 @injectable()
 export class App {
   constructor(
     private readonly baseApp: BaseApp,
     private readonly orderTypePanel: OrderTypePanel,
-    private readonly slTpPanel: SlTpPanel,
-    private readonly manualAmountService: ManualAmountService,
     private readonly godService: GodService,
+    private readonly manualAmountService: ManualAmountService,
   ) {}
 
   async start() {
     await this.baseApp.start();
 
     this.orderTypePanel.init();
-    this.slTpPanel.init();
     this.manualAmountService.init();
 
     this.godService.init();

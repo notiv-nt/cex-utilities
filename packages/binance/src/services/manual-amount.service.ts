@@ -4,6 +4,8 @@ import { Loop } from '../../../shared/src/base/loop';
 import { log } from '../../../shared/src/lib';
 import { AmountService } from '../../../shared/src/services/amount.service';
 
+const AMOUNT_INPUT_SELECTOR = '[name="orderForm"] [name="unitAmount"]';
+
 @singleton()
 export class ManualAmountService extends BaseService {
   private uiButton!: HTMLDivElement;
@@ -21,38 +23,30 @@ export class ManualAmountService extends BaseService {
   }
 
   private isStaleButton() {
-    return !document.querySelector('#leftPoForm [data-amount-button="42"]');
+    return !document.querySelector('[data-amount-button="42"]');
   }
 
   private addButton() {
-    const root = document.querySelector('#leftPoForm .place-order-input-box:has(input[name="size"])');
+    const root = document.querySelector(AMOUNT_INPUT_SELECTOR)?.parentElement?.parentElement;
     if (!root) {
       return;
     }
-
-    const label = root.querySelector<HTMLDivElement>('.input-label-box');
-
-    if (!label) {
-      return;
-    }
-
-    label.style.display = 'flex';
 
     const button = document.createElement('div');
     button.innerText = 'manual';
     button.setAttribute(
       'style',
       `
-      margin-left: auto;
       color: ${this.amountService.manual ? '#0569ff' : 'gray'};
       cursor: pointer;
-      border-bottom: 1px dashed;
       line-height: 1;
-      order: 9;
+      background: #fff;
+      text-align: right;
+      margin-left: auto;
     `,
     );
     button.setAttribute('data-amount-button', '42');
-    label.appendChild(button);
+    root.appendChild(button);
 
     button.addEventListener('click', () => {
       this.switchMode();

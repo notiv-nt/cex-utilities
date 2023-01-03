@@ -4,7 +4,7 @@ import type { IUiService } from '../../../shared/src/contracts/ui.service';
 import { PriceService } from '../../../shared/src/services/price.service';
 import { StopLossService } from '../../../shared/src/services/stop-loss.service';
 import { TakeProfitService } from '../../../shared/src/services/take-profit.service';
-import { ADVANCED_LIMIT_TEXTS, LIMIT_TAB_TEXTS } from '../constants';
+import { LIMIT_TAB_TEXTS } from '../constants';
 import { OrderTypePanel } from '../panels/order-type.panel';
 
 @singleton()
@@ -29,7 +29,7 @@ export class GodService {
           this.uiService.changeTakeProfitInput(this.takeProfitService.price);
         }
 
-        const isLimitTab = [...LIMIT_TAB_TEXTS, ...ADVANCED_LIMIT_TEXTS].includes(tab);
+        const isLimitTab = [...LIMIT_TAB_TEXTS].includes(tab);
         if (this.priceService.price !== null && isLimitTab) {
           this.uiService.changePriceInput(this.priceService.price);
         }

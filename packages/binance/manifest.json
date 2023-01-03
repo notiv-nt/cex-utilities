@@ -1,0 +1,27 @@
+{
+  "manifest_version": 3,
+  "name": "Binance utilities",
+  "description": "",
+  "version": "1.0.0",
+  "icons": {
+    "512": "misc/icon_512.png"
+  },
+  "action": {
+    "default_popup": "dist/popup.html"
+  },
+  "content_scripts": [
+    { "matches": ["https://www.binance.com/*/futures/*"], "js": ["dist/main.js"] },
+    {
+      "matches": ["https://www.binance.com/static/chart/tradingview/*"],
+      "all_frames": true,
+      "js": ["static/tv-iframe.js"]
+    }
+  ],
+  "permissions": ["storage"],
+  "web_accessible_resources": [
+    {
+      "resources": ["static/*"],
+      "matches": ["https://www.binance.com/*"]
+    }
+  ]
+}
