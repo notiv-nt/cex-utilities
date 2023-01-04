@@ -7,10 +7,17 @@ const SYMBOL_SELECTOR = '.ticker-wrap h1';
 const LAST_PRICE_TOP_BAR_SELECTOR =
   '.ticker-wrap > div:first-child > div:first-child > div:first-child > div:last-child';
 const IFRAME_SELECTOR = 'iframe[name*="tradingview_"][id*="tradingview_"]';
-const STOP_LOSS_INPUT_SELECTOR = '[name="orderForm"] [name="stopLossStopPrice"]';
-const TAKE_PROFIT_INPUT_SELECTOR = '[name="orderForm"] [name="takeProfitStopPrice"]';
-const PRICE_INPUT_SELECTOR = '[name="orderForm"] [name="limitPrice"], [name="orderForm"] [name="triggerPrice"]';
-const AMOUNT_INPUT_SELECTOR = '[name="orderForm"] [name="unitAmount"]';
+const STOP_LOSS_INPUT_SELECTOR = '[name="orderForm" i] [name="stopLossStopPrice" i]';
+const TAKE_PROFIT_INPUT_SELECTOR = '[name="orderForm" i] [name="takeProfitStopPrice" i]';
+const PRICE_INPUT_SELECTOR = `
+  [name="orderForm" i] [name="limitPrice" i],
+  [name="orderForm" i] [name="triggerPrice" i],
+  [name="orderForm" i] [name="price" i]
+`;
+const AMOUNT_INPUT_SELECTOR = `
+  [name="orderForm" i] [name="unitAmount" i],
+  [name="orderForm" i] [name="total" i]
+`;
 
 @singleton()
 export class UiService implements IUiService {
