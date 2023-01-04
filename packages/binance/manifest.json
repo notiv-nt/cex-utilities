@@ -11,6 +11,7 @@
   },
   "content_scripts": [
     { "matches": ["https://www.binance.com/*/futures/*"], "js": ["dist/main.js"] },
+    { "matches": ["https://www.binance.com/*/trade/*"], "js": ["dist/main.js"] },
     {
       "matches": ["https://www.binance.com/static/chart/tradingview/*"],
       "all_frames": true,
