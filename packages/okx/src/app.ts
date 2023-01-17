@@ -33,5 +33,13 @@ export class App {
         this.orderTypePanel.openMarketTab();
       }, 500);
     }
+
+    // TODO: refactor
+    setTimeout(() => {
+      const iframe = document.querySelector('iframe[id*=tradingview_]');
+      const script = document.createElement('script');
+      script.src = chrome.runtime.getURL('static/tv-iframe-script.js');
+      iframe.contentDocument.querySelector('body').appendChild(script);
+    }, 2000);
   }
 }
