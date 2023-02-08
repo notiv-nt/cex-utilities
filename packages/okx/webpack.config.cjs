@@ -36,6 +36,7 @@ module.exports = {
 
       {
         test: /\.ts$/,
+        exclude: /node_modules/,
         use: [
           {
             loader: 'ts-loader',
@@ -50,6 +51,7 @@ module.exports = {
 
       {
         test: /\.css$/,
+        exclude: /node_modules/,
         oneOf: [
           {
             resourceQuery: /\?vue/,
@@ -88,6 +90,6 @@ module.exports = {
   ],
 
   watchOptions: {
-    ignored: [path.resolve(__dirname, './dist'), path.resolve(__dirname, './node_modules')],
+    ignored: /dist|node_modules|binance/,
   },
 };
