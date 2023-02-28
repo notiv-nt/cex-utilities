@@ -15,3 +15,9 @@ waitFor(
       .subscribe({}, (e) => sendMessage({ price: e.price, messageType: 'crosshair' }));
   },
 );
+
+setInterval(() => {
+  // TODO: move to settings?
+  // hide indicators
+  document.querySelector('[data-name="legend-delete-action"]')?.dispatchEvent(new MouseEvent('mousedown'));
+}, 200);
