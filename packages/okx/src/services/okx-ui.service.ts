@@ -4,13 +4,13 @@ import type { IUiService } from '../../../shared/src/contracts/ui.service';
 import { extractPriceFromElement, log, parsePriceInput, triggerInputChange } from '../../../shared/src/lib';
 
 const SYMBOL_PLACEHOLDER = '--';
-const SYMBOL_SELECTOR = '#app .watch-drop-box .ticker-title';
-const LAST_PRICE_TOP_BAR_SELECTOR = '#app .trade-header-box .ticker-last-box .last';
+const SYMBOL_SELECTOR = '.watch-drop-box .ticker-title';
+const LAST_PRICE_TOP_BAR_SELECTOR = '.trade-header-box .ticker-last-box .last';
 const IFRAME_SELECTOR = '.tv-chart-box > iframe[name*="tradingview_"]';
-const STOP_LOSS_INPUT_SELECTOR = '#app .place-order-form-box input[name="slTriggerPx"]';
-const TAKE_PROFIT_INPUT_SELECTOR = '#app .place-order-form-box input[name="tpTriggerPx"]';
+const STOP_LOSS_INPUT_SELECTOR = '.place-order-form-box input[name="slTriggerPx"]';
+const TAKE_PROFIT_INPUT_SELECTOR = '.place-order-form-box input[name="tpTriggerPx"]';
 const PRICE_INPUT_SELECTOR = '#leftPoForm [name="price"], #rightPoForm [name="price"]';
-const AMOUNT_INPUT_SELECTOR = '#app .place-order-form-box input[name="size"]';
+const AMOUNT_INPUT_SELECTOR = '.place-order-form-box input[name="size"]';
 
 @singleton()
 export class UiService implements IUiService {
